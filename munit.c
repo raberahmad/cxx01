@@ -1811,7 +1811,7 @@ munit_suite_list_tests(const MunitSuite* suite, bool show_params, const char* pr
 
 static bool
 munit_stream_supports_ansi(FILE *stream) {
-    return true;
+   // return false;
 #if !defined(_WIN32)
   return isatty(fileno(stream));
 #else
@@ -2023,7 +2023,7 @@ munit_suite_main_custom(const MunitSuite* suite, void* user_data,
 
   fflush(stderr);
   fprintf(MUNIT_OUTPUT_FILE, "Running test suite with seed 0x%08" PRIx32 "...\n", runner.seed);
-
+    
   munit_test_runner_run(&runner);
 
   tests_run = runner.report.successful + runner.report.failed + runner.report.errored;

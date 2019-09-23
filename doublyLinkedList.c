@@ -13,7 +13,8 @@ void dllDelete(DoublyLinkedList **ptrTheList)
     //todo: delete items
     if(*ptrTheList)
     {
-       // free(*ptrTheList);
+        // free(*ptrTheList);
+
     }
     *ptrTheList = NULL;
 }
@@ -41,7 +42,25 @@ DllNode *dllAddBeforeHead(DoublyLinkedList *theList, void *theData)
 }
 DllNode *dllAddAfterTail(DoublyLinkedList *theList, void *theData)
 {
-    return NULL;
+    
+    if(theList == NULL) return NULL;
+    if(theData == NULL) return NULL;
+    DllNode *newNode = malloc(sizeof(newNode));
+    if (newNode == NULL) return NULL;
+    
+    newNode->data = theData;
+    newNode->next = NULL;
+    if(theList->head == NULL){
+        theList->head = newNode;
+        newNode->previous=NULL;
+    }
+    else{
+        theList->tail->next=newNode;
+        newNode->previous=theList->tail;
+       
+        }
+     theList->tail=newNode;
+    return newNode;
 }
 DllNode *dllAddBefore(DoublyLinkedList *theList, DllNode *theNode, void *theData)
 {
@@ -54,8 +73,15 @@ DllNode *dllAddAfter(DoublyLinkedList *theList, DllNode *theNode, void *theData)
 
 }
 void dllDeleteNode(DoublyLinkedList *theList, DllNode* theNode)
-{
+{   
+    
+    if (theList != NULL && theNode != NULL) {
+        int size=dllNumberOfElements(theList);
 
+        
+
+    }
+    
 }
 DllNode *dllFindFirst(DoublyLinkedList *theList, bool (*predicate)(void *d1, void *d2), void *theData)
 {
@@ -78,6 +104,23 @@ DllNode *dllFindBefore(DoublyLinkedList *theList, DllNode *theNode, bool (*predi
 }
 size_t dllNumberOfElements(DoublyLinkedList *theList)
 {
-    return NULL;
-
+    int size = 0;
+    
+    if (theList == NULL)
+    {
+        return NULL;
+    }
+    else if (theList->head != NULL && theList->tail != NULL) {
+        
+        DllNode *tmpNode = malloc(sizeof(tmpNode));
+        tmpNode = theList->head;
+        while (tmpNode) {
+            tmpNode=tmpNode->next;
+            size=size+1;
+        }
+        
+        free(tmpNode);
+        tmpNode=NULL;     
+    }
+    return size;
 }
