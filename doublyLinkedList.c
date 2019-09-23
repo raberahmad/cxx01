@@ -37,19 +37,20 @@ DllNode *dllAddBeforeHead(DoublyLinkedList *theList, void *theData)
         theList->tail = newNode;
     }
     theList->head = newNode;
-    char* a = "a";
-
+    return newNode;
 }
 DllNode *dllAddAfterTail(DoublyLinkedList *theList, void *theData)
 {
-
+    return NULL;
 }
 DllNode *dllAddBefore(DoublyLinkedList *theList, DllNode *theNode, void *theData)
 {
+    return NULL;
 
 }
 DllNode *dllAddAfter(DoublyLinkedList *theList, DllNode *theNode, void *theData)
 {
+    return NULL;
 
 }
 void dllDeleteNode(DoublyLinkedList *theList, DllNode* theNode)
@@ -58,20 +59,25 @@ void dllDeleteNode(DoublyLinkedList *theList, DllNode* theNode)
 }
 DllNode *dllFindFirst(DoublyLinkedList *theList, bool (*predicate)(void *d1, void *d2), void *theData)
 {
+    return NULL;
 
 }
 DllNode *dllFindLast(DoublyLinkedList *theList, bool (*predicate)(void *d1, void *d2), void *theData)
 {
+    return NULL;
 
 }
 DllNode *dllFindAfter(DoublyLinkedList *theList, DllNode *theNode, bool (*predicate)(void *d1, void *d2), void *theData){
+    return NULL;
 
 }
 DllNode *dllFindBefore(DoublyLinkedList *theList, DllNode *theNode, bool (*predicate)(void *d1, void *d2), void *theData)
 {
+    return NULL;
 
 }
 size_t dllNumberOfElements(DoublyLinkedList *theList)
 {
+    return NULL;
 
 }

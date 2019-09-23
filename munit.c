@@ -1811,6 +1811,7 @@ munit_suite_list_tests(const MunitSuite* suite, bool show_params, const char* pr
 
 static bool
 munit_stream_supports_ansi(FILE *stream) {
+    return true;
 #if !defined(_WIN32)
   return isatty(fileno(stream));
 #else
