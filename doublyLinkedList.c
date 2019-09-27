@@ -13,8 +13,7 @@ void dllDelete(DoublyLinkedList **ptrTheList)
     //todo: delete items
     if(*ptrTheList)
     {
-        // free(*ptrTheList);
-
+       //**ptrTheList
     }
     *ptrTheList = NULL;
 }
@@ -64,23 +63,85 @@ DllNode *dllAddAfterTail(DoublyLinkedList *theList, void *theData)
 }
 DllNode *dllAddBefore(DoublyLinkedList *theList, DllNode *theNode, void *theData)
 {
-    return NULL;
+    if (theData == NULL) return NULL;
+    if (theNode == NULL) return NULL;
+    if (theNode->previous==NULL)
+    {
+        return dllAddBeforeHead(theList, theData);
+    }
+    
+    DllNode* newNode = malloc(sizeof(newNode));
+    if(newNode == NULL) return NULL;
 
+    newNode->data=theData;
+    
+    newNode->next=theNode;
+    theNode->previous->next=newNode;
+    
+    newNode->previous=theNode->previous;
+    theNode->previous=newNode;
+
+    return newNode;
 }
 DllNode *dllAddAfter(DoublyLinkedList *theList, DllNode *theNode, void *theData)
 {
-    return NULL;
+    if (theData == NULL) return NULL;
+    if (theNode == NULL) return NULL;
+    if (theNode->next==NULL)
+    {
+        return dllAddAfterTail(theList, theData);
+    }
 
+    DllNode* newNode = malloc(sizeof(newNode));
+    if(newNode == NULL) return NULL;
+
+    newNode->data=theData;
+    
+    ///////// geeeeen ideeee of het werkt
+
+    newNode->next = theNode->next; 
+
+    theNode->next = newNode; 
+  
+
+    newNode->previous = theNode; 
+
+    return newNode;
+    
 }
 void dllDeleteNode(DoublyLinkedList *theList, DllNode* theNode)
 {   
     
     if (theList != NULL && theNode != NULL) {
-        int size=dllNumberOfElements(theList);
-
         
-
+        if(dllNumberOfElements(theList)==1 && theList->head == theList && theList->tail == theNode){
+            free(theList->head);
+            free(theList->tail);
+            theList->head = NULL;
+            theList->head=NULL;
+        }
+        else
+        {
+            if (theNode->previous==NULL)
+            {
+                theList->head=theNode->next;
+                theNode->next->previous=NULL;
+                free(theNode);
+            }
+            if (theNode->next==NULL)
+            {
+                theList->tail=theNode->previous;
+                theNode->previous->next=NULL;
+            }
+            else
+            {
+                theNode->previous->next=theNode->next;
+                theNode->next->previous=theNode->previous;
+                free(theNode);
+            }       
+        }         
     }
+    
     
 }
 DllNode *dllFindFirst(DoublyLinkedList *theList, bool (*predicate)(void *d1, void *d2), void *theData)
