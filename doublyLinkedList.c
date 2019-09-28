@@ -20,7 +20,6 @@ void dllDelete(DoublyLinkedList **ptrTheList)
 DllNode *dllAddBeforeHead(DoublyLinkedList *theList, void *theData)
 {
     if(theList == NULL) return NULL;
-    if(theData == NULL) return NULL;
     DllNode* newNode = malloc(sizeof(newNode));
     if(newNode == NULL) return NULL;
 
@@ -41,9 +40,7 @@ DllNode *dllAddBeforeHead(DoublyLinkedList *theList, void *theData)
 }
 DllNode *dllAddAfterTail(DoublyLinkedList *theList, void *theData)
 {
-    
     if(theList == NULL) return NULL;
-    if(theData == NULL) return NULL;
     DllNode *newNode = malloc(sizeof(newNode));
     if (newNode == NULL) return NULL;
     
@@ -63,7 +60,6 @@ DllNode *dllAddAfterTail(DoublyLinkedList *theList, void *theData)
 }
 DllNode *dllAddBefore(DoublyLinkedList *theList, DllNode *theNode, void *theData)
 {
-    if (theData == NULL) return NULL;
     if (theNode == NULL) return NULL;
     if (theNode->previous==NULL)
     {
@@ -85,7 +81,6 @@ DllNode *dllAddBefore(DoublyLinkedList *theList, DllNode *theNode, void *theData
 }
 DllNode *dllAddAfter(DoublyLinkedList *theList, DllNode *theNode, void *theData)
 {
-    if (theData == NULL) return NULL;
     if (theNode == NULL) return NULL;
     if (theNode->next==NULL)
     {
@@ -97,7 +92,7 @@ DllNode *dllAddAfter(DoublyLinkedList *theList, DllNode *theNode, void *theData)
 
     newNode->data=theData;
     
-    ///////// geeeeen ideeee of het werkt
+    theNode->next->previous = newNode;
 
     newNode->next = theNode->next; 
 
@@ -106,43 +101,38 @@ DllNode *dllAddAfter(DoublyLinkedList *theList, DllNode *theNode, void *theData)
 
     newNode->previous = theNode; 
 
+
     return newNode;
     
 }
 void dllDeleteNode(DoublyLinkedList *theList, DllNode* theNode)
 {   
-    
-    if (theList != NULL && theNode != NULL) {
-        
-        if(dllNumberOfElements(theList)==1 && theList->head == theList && theList->tail == theNode){
-            free(theList->head);
-            free(theList->tail);
-            theList->head = NULL;
-            theList->head=NULL;
-        }
-        else
+    if(theList == NULL)return;
+    if(theNode == NULL)return;
+
+    if(theNode == theList->head)
+    {
+        if(theNode == theList->tail)
         {
-            if (theNode->previous==NULL)
-            {
-                theList->head=theNode->next;
-                theNode->next->previous=NULL;
-                free(theNode);
-            }
-            if (theNode->next==NULL)
-            {
-                theList->tail=theNode->previous;
-                theNode->previous->next=NULL;
-            }
-            else
-            {
-                theNode->previous->next=theNode->next;
-                theNode->next->previous=theNode->previous;
-                free(theNode);
-            }       
-        }         
+            theList->head = NULL;
+            theList->tail = NULL;
+        }
+        else {
+            theList->head = theNode->next;
+            theNode->next->previous = NULL;
+        }
     }
-    
-    
+    else if(theNode == theList->tail)
+    {
+        theList->tail = theNode->previous;
+        theNode->previous->next = NULL;
+    }
+    else {
+        theNode->next->previous = theNode->previous;
+        theNode->previous->next = theNode->next;
+    }
+
+    free(theNode);
 }
 DllNode *dllFindFirst(DoublyLinkedList *theList, bool (*predicate)(void *d1, void *d2), void *theData)
 {
@@ -165,22 +155,20 @@ DllNode *dllFindBefore(DoublyLinkedList *theList, DllNode *theNode, bool (*predi
 }
 size_t dllNumberOfElements(DoublyLinkedList *theList)
 {
-    int size = 0;
+    size_t size = 0;
     
     if (theList == NULL)
     {
-        return NULL;
+        return 0;
     }
-    else if (theList->head != NULL && theList->tail != NULL) {
-        
-        DllNode *tmpNode = malloc(sizeof(tmpNode));
-        tmpNode = theList->head;
+    else if (theList->head != NULL && theList->tail != NULL)
+    {
+        DllNode *tmpNode = theList->head;
         while (tmpNode) {
-            tmpNode=tmpNode->next;
-            size=size+1;
+            tmpNode = tmpNode->next;
+            size += 1;
         }
         
-        free(tmpNode);
         tmpNode=NULL;     
     }
     return size;
