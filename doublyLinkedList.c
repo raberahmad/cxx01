@@ -20,7 +20,7 @@ void dllDelete(DoublyLinkedList **ptrTheList)
 DllNode *dllAddBeforeHead(DoublyLinkedList *theList, void *theData)
 {
     if(theList == NULL) return NULL;
-    DllNode* newNode = malloc(sizeof(newNode));
+    DllNode* newNode = malloc(sizeof(DllNode));
     if(newNode == NULL) return NULL;
 
     newNode->data = theData;
@@ -41,7 +41,7 @@ DllNode *dllAddBeforeHead(DoublyLinkedList *theList, void *theData)
 DllNode *dllAddAfterTail(DoublyLinkedList *theList, void *theData)
 {
     if(theList == NULL) return NULL;
-    DllNode *newNode = malloc(sizeof(newNode));
+    DllNode *newNode = malloc(sizeof(DllNode));
     if (newNode == NULL) return NULL;
     
     newNode->data = theData;
@@ -66,7 +66,7 @@ DllNode *dllAddBefore(DoublyLinkedList *theList, DllNode *theNode, void *theData
         return dllAddBeforeHead(theList, theData);
     }
     
-    DllNode* newNode = malloc(sizeof(newNode));
+    DllNode* newNode = malloc(sizeof(DllNode));
     if(newNode == NULL) return NULL;
 
     newNode->data=theData;
@@ -87,7 +87,7 @@ DllNode *dllAddAfter(DoublyLinkedList *theList, DllNode *theNode, void *theData)
         return dllAddAfterTail(theList, theData);
     }
 
-    DllNode* newNode = malloc(sizeof(newNode));
+    DllNode* newNode = malloc(sizeof(DllNode));
     if(newNode == NULL) return NULL;
 
     newNode->data=theData;
@@ -136,11 +136,34 @@ void dllDeleteNode(DoublyLinkedList *theList, DllNode* theNode)
 }
 DllNode *dllFindFirst(DoublyLinkedList *theList, bool (*predicate)(void *d1, void *d2), void *theData)
 {
-    return NULL;
+    if(theList == NULL)return NULL;
+    if(predicate == NULL)return NULL;
 
+    DllNode* currentNode = theList->head;
+    while(currentNode)
+    {
+        if(predicate(currentNode->data,theData))
+        {
+            return currentNode;
+        }
+        currentNode = currentNode->next;
+    }
+    return NULL;
 }
 DllNode *dllFindLast(DoublyLinkedList *theList, bool (*predicate)(void *d1, void *d2), void *theData)
 {
+    if(theList == NULL)return NULL;
+    if(predicate == NULL)return NULL;
+
+    DllNode* currentNode = theList->tail;
+    while(currentNode)
+    {
+        if(predicate(currentNode->data,theData))
+        {
+            return currentNode;
+        }
+        currentNode = currentNode->previous;
+    }
     return NULL;
 
 }
