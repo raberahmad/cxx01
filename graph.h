@@ -12,6 +12,7 @@ typedef struct
 char* name;
 void* data;
 DoublyLinkedList *edges; 
+
 } Vertex;
 
 typedef struct

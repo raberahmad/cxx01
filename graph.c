@@ -4,7 +4,7 @@
 Graph* createGraph(void){
     Graph *newGraph = malloc(sizeof(Graph));
     if (newGraph == NULL) return NULL;
-    
+
     DoublyLinkedList *dllist = dllCreate();
     newGraph->vertices = dllist;
 
@@ -27,36 +27,36 @@ Vertex* addVertex(Graph *graph, char* name, void* data){
     newVertex->data = data;
     newVertex->name = name;
     dllAddAfterTail(graph->vertices, newVertex);
-    
+
     return newVertex;
 }
 
 void deleteVertex(Graph *graph, Vertex** ptrToDeleteVertex){
-    if (graph != NULL && ptrToDeleteVertex != NULL){
-        dllDeleteNode(graph, *ptrToDeleteVertex);
-        free(*ptrToDeleteVertex);
-        *ptrToDeleteVertex = NULL;
-    }
+//    if (graph != NULL && ptrToDeleteVertex != NULL){
+//        dllDeleteNode(graph->vertices, *ptrToDeleteVertex);
+//        free(*ptrToDeleteVertex);
+//        *ptrToDeleteVertex = NULL;
+//    }
 }
 
 size_t numberOfVertexs(Graph* graph){
-    if (graph == NULL) return NULL;
+    if (graph == NULL) return 0;
     return dllNumberOfElements(graph->vertices);
 }
 
 Edge* createEdge(Vertex* from, Vertex* destination, bool unDirected){
-    createEdgeWithWeight(from, destination, NULL, unDirected);
+    return createEdgeWithWeight(from, destination, 0, unDirected);
 }
 
 Edge* createEdgeWithWeight(Vertex* from, Vertex* destination,int weight, bool unDirected){
     if (from == NULL) return NULL;
-    if (destination == NULL) return NULL; 
-    Edge *edge= malloc(sizeof(Edge)); 
+    if (destination == NULL) return NULL;
+    Edge *edge= malloc(sizeof(Edge));
     edge->destination=destination;
     edge->weight=weight;
-    
+
     dllAddAfterTail(from->edges, edge);
-    
+
     if (unDirected == true){
         Edge *edge2= malloc(sizeof(Edge));
         edge->destination=from;

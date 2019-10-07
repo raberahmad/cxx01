@@ -47,23 +47,22 @@ MunitResult addVertex_test(const MunitParameter params[], void *data)
     Vertex* vertex1_2 = addVertex(graph1,(void*)"vertex2",&testdata);
 
     munit_assert_not_null(vertex1_1);
-    munit_assert_memory_equal(9, vertex1_1->data, (void*)"testname");
+    munit_assert_memory_equal(9, vertex1_1->name, (void*)"testname");
     munit_assert_null(vertex1_1->data);
     munit_assert_not_null(vertex1_1->name);
     munit_assert_not_null(vertex1_1->edges);
 
     munit_assert_not_null(vertex1_2);
-    munit_assert_memory_equal(8, vertex1_2->data, (void*)"vertex2");
+    munit_assert_memory_equal(8, vertex1_2->name, (void*)"vertex2");
     munit_assert_not_null(vertex1_2->name);
     munit_assert_not_null(vertex1_2->edges);
     munit_assert_ptr_equal(&testdata,vertex1_2->data);
 
+    deleteVertex(graph1,&vertex1_1);
+    deleteVertex(graph1,&vertex1_2);
 
     graphDelete(&graph1);
     graphDelete(&graph2);
-
-    deleteVertex(graph1,&vertex1_1);
-    deleteVertex(graph1,&vertex1_2);
 
     return MUNIT_OK;
 }
