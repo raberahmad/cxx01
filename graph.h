@@ -11,7 +11,7 @@ typedef struct
 {
 char* name;
 void* data;
-DoublyLinkedList edges; 
+DoublyLinkedList *edges; 
 } Vertex;
 
 typedef struct
@@ -23,20 +23,20 @@ int weight;
 
 typedef struct
 {
-DoublyLinkedList vertices;
+DoublyLinkedList *vertices;
 } Graph;
 
 
 Graph* createGraph(void);
 void graphDelete(Graph** ptrToDeleteGraph);
-Vertex* addVertex(char* name, void* data);
+Vertex* addVertex(Graph *graph, char* name, void* data);
 void deleteVertex(Vertex** ptrToDeleteVertex);
 size_t numberOfVertexs(Graph* graph);
 Edge* createEdge(Vertex* from, Vertex* destination, bool unDirected);
-Edge* createEdgeWithWeight(Vertex* from, Vertex* destination,int weight, bool unDirected);
-Edge* deleteEdge(Edge *toDeleteEdge, Vertex* connectedVertex);
-void printConnections(Vertex* pointOfView);
-Vertex* searchVertexByName(char* name);
+Edge* createEdgeWithWeight(Graph* graph, Vertex* from, Vertex* destination,int weight, bool unDirected);
+Edge* deleteEdge(Graph* graph, Edge *toDeleteEdge, Vertex* connectedVertex);
+void printConnections(Graph* graph, Vertex* pointOfView);
+Vertex* searchVertexByName(Graph* graph, char* name);
 
 
 #endif
