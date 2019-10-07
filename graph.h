@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include <doublyLinkedList.h>
+#include "doublyLinkedList.h"
 
 
 typedef struct
@@ -33,7 +33,7 @@ Vertex* addVertex(char* name, void* data);
 void deleteVertex(Vertex** ptrToDeleteVertex);
 size_t numberOfVertexs(Graph* graph);
 Edge* createEdge(Vertex* from, Vertex* destination, bool unDirected);
-Edge* createEdge(Vertex* from, Vertex* destination,int weight, bool unDirected);
+Edge* createEdgeWithWeight(Vertex* from, Vertex* destination,int weight, bool unDirected);
 Edge* deleteEdge(Edge *toDeleteEdge, Vertex* connectedVertex);
 void printConnections(Vertex* pointOfView);
 Vertex* searchVertexByName(char* name);
