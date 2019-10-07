@@ -33,10 +33,12 @@ Vertex* addVertex(Graph *graph, char* name, void* data);
 void deleteVertex(Vertex** ptrToDeleteVertex);
 size_t numberOfVertexs(Graph* graph);
 Edge* createEdge(Vertex* from, Vertex* destination, bool unDirected);
+
 Edge* createEdgeWithWeight(Graph* graph, Vertex* from, Vertex* destination,int weight, bool unDirected);
 Edge* deleteEdge(Graph* graph, Edge *toDeleteEdge, Vertex* connectedVertex);
 void printConnections(Graph* graph, Vertex* pointOfView);
 Vertex* searchVertexByName(Graph* graph, char* name);
+
 
 
 #endif
