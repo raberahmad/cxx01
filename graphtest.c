@@ -62,8 +62,8 @@ MunitResult addVertex_test(const MunitParameter params[], void *data)
     graphDelete(&graph1);
     graphDelete(&graph2);
 
-    deleteVertex(&vertex1_1);
-    deleteVertex(&vertex1_2);
+    deleteVertex(graph1,&vertex1_1);
+    deleteVertex(graph1,&vertex1_2);
 
     return MUNIT_OK;
 }
@@ -80,12 +80,12 @@ MunitResult deleteVertexTest(const MunitParameter params[], void *data)
     munit_assert_true(numberOfVertexs(graph) == 2);
 
     munit_assert_not_null(vertex1);
-    deleteVertex(&vertex1);
+    deleteVertex(graph,&vertex1);
     munit_assert_null(vertex1);
     munit_assert_true(numberOfVertexs(graph) == 1);
 
     munit_assert_not_null(vertex2);
-    deleteVertex(&vertex2);
+    deleteVertex(graph,&vertex2);
     munit_assert_null(vertex2);
     munit_assert_true(numberOfVertexs(graph) == 0);
 
@@ -108,12 +108,12 @@ MunitResult numberOfVertices_test(const MunitParameter params[], void *data)
     Vertex* vertex3 = addVertex(graph, (void*)"vertex3",NULL);
     munit_assert_true(numberOfVertexs(graph) == 3);
 
-    deleteVertex(&vertex1);
-    deleteVertex(&vertex3);
+    deleteVertex(graph,&vertex1);
+    deleteVertex(graph,&vertex3);
 
     munit_assert_true(numberOfVertexs(graph) == 1);
 
-    deleteVertex(&vertex2);
+    deleteVertex(graph,&vertex2);
 
     munit_assert_true(numberOfVertexs(graph) == 0);
 
@@ -154,9 +154,9 @@ MunitResult createEdge_test(const MunitParameter params[], void *data)
     createEdge(vertex2,vertex1,true);
     munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
 
-    deleteVertex(&vertex1);
-    deleteVertex(&vertex2);
-    deleteVertex(&vertex3);
+    deleteVertex(graph,&vertex1);
+    deleteVertex(graph,&vertex2);
+    deleteVertex(graph,&vertex3);
     graphDelete(&graph);
 }
 MunitResult createEdgeWithWeight_test(const MunitParameter params[], void *data)
@@ -174,23 +174,23 @@ MunitResult createEdgeWithWeight_test(const MunitParameter params[], void *data)
     munit_assert_not_null(vertex2);
     munit_assert_not_null(vertex3);
 
-    createEdgeWithWeight(graph, vertex1,vertex2,10,false);
+    createEdgeWithWeight(vertex1,vertex2,10,false);
     munit_assert_true(dllNumberOfElements(vertex1->edges) == 1);
     munit_assert_true(((Vertex*)vertex1->edges->head->data) == vertex2);
     munit_assert_true(((Edge*)vertex1->edges->head->data)->weight == 10);
 
-    createEdgeWithWeight(graph, vertex2,vertex1,0,false);
+    createEdgeWithWeight(vertex2,vertex1,0,false);
     munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
     munit_assert_true(((Edge*)vertex2->edges->head->data)->weight == 0);
 
-    createEdgeWithWeight(graph, vertex1,vertex3,100,true);
+    createEdgeWithWeight(vertex1,vertex3,100,true);
     munit_assert_true(((Edge*)vertex3->edges->head->data)->weight == 100);
     munit_assert_true(((Edge*)vertex3->edges->head->data)->destination == vertex1);
     munit_assert_true(((Edge*)vertex1->edges->head->data)->destination == vertex1);
 
-    deleteVertex(&vertex1);
-    deleteVertex(&vertex2);
-    deleteVertex(&vertex3);
+    deleteVertex(graph,&vertex1);
+    deleteVertex(graph,&vertex2);
+    deleteVertex(graph,&vertex3);
     graphDelete(&graph);
 }
 MunitResult deleteEdge_undirected_test(const MunitParameter params[], void *data)
@@ -222,9 +222,9 @@ MunitResult deleteEdge_undirected_test(const MunitParameter params[], void *data
     //test NULL graph
     deleteEdge(NULL,edge2,vertex1);
 
-    deleteVertex(&vertex1);
-    deleteVertex(&vertex2);
-    deleteVertex(&vertex3);
+    deleteVertex(graph,&vertex1);
+    deleteVertex(graph,&vertex2);
+    deleteVertex(graph,&vertex3);
     graphDelete(&graph);
 }
 MunitResult deleteEdge_directed_test(const MunitParameter params[], void *data)
@@ -245,9 +245,9 @@ MunitResult deleteEdge_directed_test(const MunitParameter params[], void *data)
     munit_assert_true(dllNumberOfElements(vertex2->edges) == 0);
 
 
-    deleteVertex(&vertex1);
-    deleteVertex(&vertex2);
-    deleteVertex(&vertex3);
+    deleteVertex(graph,&vertex1);
+    deleteVertex(graph,&vertex2);
+    deleteVertex(graph,&vertex3);
     graphDelete(&graph);
 }
 /* These tests contain only valid operations. These should always succeed. */
