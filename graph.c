@@ -22,19 +22,21 @@ Vertex* addVertex(Graph *graph, char* name, void* data){
 
     if (graph == NULL) return NULL;
     if (name == NULL) return NULL;
-    if (data == NULL) return NULL;
 
     Vertex *newVertex = malloc(sizeof(Vertex));
     newVertex->data = data;
     newVertex->name = name;
-    DoublyLinkedList *vdlist = dllCreate();
     dllAddAfterTail(graph->vertices, newVertex);
     
     return newVertex;
 }
 
-void deleteVertex(Vertex** ptrToDeleteVertex){
-    
+void deleteVertex(Graph *graph, Vertex** ptrToDeleteVertex){
+    if (graph != NULL && ptrToDeleteVertex != NULL){
+        dllDeleteNode(graph, *ptrToDeleteVertex);
+        free(*ptrToDeleteVertex);
+        *ptrToDeleteVertex = NULL;
+    }
 }
 
 size_t numberOfVertexs(Graph* graph){
@@ -43,35 +45,44 @@ size_t numberOfVertexs(Graph* graph){
 }
 
 Edge* createEdge(Vertex* from, Vertex* destination, bool unDirected){
+    createEdgeWithWeight(from, destination, NULL, unDirected);
+}
+
+Edge* createEdgeWithWeight(Vertex* from, Vertex* destination,int weight, bool unDirected){
     if (from == NULL) return NULL;
     if (destination == NULL) return NULL; 
     Edge *edge= malloc(sizeof(Edge)); 
     edge->destination=destination;
-    edge->weight=NULL;
+    edge->weight=weight;
     
     dllAddAfterTail(from->edges, edge);
     
     if (unDirected == true){
         Edge *edge2= malloc(sizeof(Edge));
         edge->destination=from;
-        edge->weight=NULL;
+        edge->weight=weight;
 
         dllAddAfterTail(destination->edges, edge2);
     }
     return edge;
 }
 
-Edge* createEdgeWithWeight(Graph* graph, Vertex* from, Vertex* destination,int weight, bool unDirected){
-    return NULL;
-}
+void deleteEdge(Graph* graph, Edge *toDeleteEdge, Vertex* connectedVertex){
+    if (graph == NULL) return ;
+    if (toDeleteEdge == NULL) return;
+    if (connectedVertex == NULL) return;
 
-Edge* deleteEdge(Graph* graph, Edge *toDeleteEdge, Vertex* connectedVertex){
-    return NULL;
+    toDeleteEdge->destination = NULL;
+    toDeleteEdge->weight=NULL;
+    dllDeleteNode(connectedVertex, toDeleteEdge);
+    free(toDeleteEdge);
 }
 
 void printConnections(Graph* graph, Vertex* pointOfView){
-
+    //
 }
+
+
 Vertex* searchVertexByName(Graph* graph, char* name){
     return NULL;
 }
