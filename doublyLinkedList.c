@@ -10,7 +10,6 @@ DoublyLinkedList *dllCreate(void)
 }
 void dllDelete(DoublyLinkedList **ptrTheList)
 {
-
     if(ptrTheList == NULL)return;
     if(*ptrTheList == NULL)return;
     DllNode *currentNode = (*ptrTheList)->head;

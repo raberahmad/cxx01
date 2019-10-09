@@ -43,9 +43,10 @@ MunitResult addVertex_test(const MunitParameter params[], void *data)
     Graph* graph2 = createGraph();
 
     int testdata = 1;
-    Vertex* vertex1_1 = addVertex(graph1,(void*)"testname",NULL);
-    Vertex* vertex1_2 = addVertex(graph1,(void*)"vertex2",&testdata);
-
+    Vertex* vertex1_1 = addVertex(graph1,"testname",NULL);
+    Vertex* vertex1_2 = addVertex(graph1,"vertex2",&testdata);
+    char* name = "test";
+    Vertex* vertex1_3 = addVertex(graph1,name,NULL);
     munit_assert_not_null(vertex1_1);
     munit_assert_memory_equal(9, vertex1_1->name, (void*)"testname");
     munit_assert_null(vertex1_1->data);
@@ -58,8 +59,10 @@ MunitResult addVertex_test(const MunitParameter params[], void *data)
     munit_assert_not_null(vertex1_2->edges);
     munit_assert_ptr_equal(&testdata,vertex1_2->data);
 
-    deleteVertex(graph1,&vertex1_1);
-    deleteVertex(graph1,&vertex1_2);
+    munit_assert_ptr_not_equal(vertex1_3->name,name);
+    munit_assert_not_null(vertex1_3->ptrToNode);
+    munit_assert_not_null(vertex1_3->edges);
+
 
     graphDelete(&graph1);
     graphDelete(&graph2);
@@ -74,8 +77,8 @@ MunitResult deleteVertexTest(const MunitParameter params[], void *data)
 
     Graph* graph = createGraph();
     int testData = 1;
-    Vertex* vertex1 = addVertex(graph, (void*)"testname",NULL);
-    Vertex* vertex2 = addVertex(graph, (void*)"vertex2",&testData);
+    Vertex* vertex1 = addVertex(graph, "testname",NULL);
+    Vertex* vertex2 = addVertex(graph, "vertex2",&testData);
     munit_assert_true(numberOfVertexs(graph) == 2);
 
     munit_assert_not_null(vertex1);
@@ -102,9 +105,9 @@ MunitResult numberOfVertices_test(const MunitParameter params[], void *data)
     munit_assert_true(numberOfVertexs(graph) == 0);
 
     int testData = 1;
-    Vertex* vertex1 = addVertex(graph, (void*)"testname",NULL);
-    Vertex* vertex2 = addVertex(graph, (void*)"vertex2",&testData);
-    Vertex* vertex3 = addVertex(graph, (void*)"vertex3",NULL);
+    Vertex* vertex1 = addVertex(graph, "testname",NULL);
+    Vertex* vertex2 = addVertex(graph, "vertex2",&testData);
+    Vertex* vertex3 = addVertex(graph, "vertex3",NULL);
     munit_assert_true(numberOfVertexs(graph) == 3);
 
     deleteVertex(graph,&vertex1);
@@ -128,34 +131,31 @@ MunitResult createEdge_test(const MunitParameter params[], void *data)
     Graph* graph = createGraph();
     int testData = 1;
     Vertex* vertex1 = addVertex(graph, (void*)"vertex1", &testData);
-    Vertex* vertex2 = addVertex(graph, (void*)"vertex2", NULL);
-    Vertex* vertex3 = addVertex(graph, (void*)"vertex3", NULL);
+    Vertex* vertex2 = addVertex(graph, "vertex2", NULL);
+    Vertex* vertex3 = addVertex(graph, "vertex3", NULL);
 
     munit_assert_not_null(vertex1);
     munit_assert_not_null(vertex2);
     munit_assert_not_null(vertex3);
 
-    createEdge(vertex1,vertex2,false);
+    createEdge(vertex1,vertex2, DIRECTED);
     munit_assert_true(dllNumberOfElements(vertex1->edges) == 1);
     munit_assert_true(((Edge*)vertex1->edges->head->data)->destination == vertex2);
-    munit_assert_false(((Edge*)vertex2->edges->head->data)->destination == vertex1);
+    munit_assert_true(dllNumberOfElements( vertex2->edges) == 0);
 
-    createEdge(vertex2,vertex1,false);
+    createEdge(vertex2,vertex1, UNDIRECTED);
     munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
     munit_assert_true(((Edge*)vertex1->edges->head->data)->destination == vertex2);
     munit_assert_true(((Edge*)vertex2->edges->head->data)->destination == vertex1);
 
     //test double assignment
-    createEdge(vertex2,vertex1,false);
+    createEdge(vertex2,vertex1, DIRECTED);
     munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
 
     //test double assignment
-    createEdge(vertex2,vertex1,true);
+    createEdge(vertex2,vertex1, UNDIRECTED);
     munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
 
-    deleteVertex(graph,&vertex1);
-    deleteVertex(graph,&vertex2);
-    deleteVertex(graph,&vertex3);
     graphDelete(&graph);
 }
 MunitResult createEdgeWithWeight_test(const MunitParameter params[], void *data)
@@ -165,31 +165,29 @@ MunitResult createEdgeWithWeight_test(const MunitParameter params[], void *data)
 
     Graph* graph = createGraph();
     int testData = 1;
-    Vertex* vertex1 = addVertex(graph, (void*)"vertex1", &testData);
-    Vertex* vertex2 = addVertex(graph, (void*)"vertex2", NULL);
-    Vertex* vertex3 = addVertex(graph, (void*)"vertex3", NULL);
+    Vertex* vertex1 = addVertex(graph, "vertex1", &testData);
+    Vertex* vertex2 = addVertex(graph, "vertex2", NULL);
+    Vertex* vertex3 = addVertex(graph, "vertex3", NULL);
 
     munit_assert_not_null(vertex1);
     munit_assert_not_null(vertex2);
     munit_assert_not_null(vertex3);
 
-    createEdgeWithWeight(vertex1,vertex2,10,false);
+    createEdgeWithWeight(vertex1,vertex2,10, DIRECTED);
     munit_assert_true(dllNumberOfElements(vertex1->edges) == 1);
     munit_assert_true(((Vertex*)vertex1->edges->head->data) == vertex2);
     munit_assert_true(((Edge*)vertex1->edges->head->data)->weight == 10);
 
-    createEdgeWithWeight(vertex2,vertex1,0,false);
+    createEdgeWithWeight(vertex2,vertex1,0, DIRECTED);
     munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
     munit_assert_true(((Edge*)vertex2->edges->head->data)->weight == 0);
 
-    createEdgeWithWeight(vertex1,vertex3,100,true);
+    createEdgeWithWeight(vertex1,vertex3,100, UNDIRECTED);
     munit_assert_true(((Edge*)vertex3->edges->head->data)->weight == 100);
     munit_assert_true(((Edge*)vertex3->edges->head->data)->destination == vertex1);
     munit_assert_true(((Edge*)vertex1->edges->head->data)->destination == vertex1);
 
-    deleteVertex(graph,&vertex1);
-    deleteVertex(graph,&vertex2);
-    deleteVertex(graph,&vertex3);
+
     graphDelete(&graph);
 }
 MunitResult deleteEdge_undirected_test(const MunitParameter params[], void *data)
@@ -199,11 +197,11 @@ MunitResult deleteEdge_undirected_test(const MunitParameter params[], void *data
 
     Graph* graph = createGraph();
     int testData = 1;
-    Vertex* vertex1 = addVertex(graph, (void*)"vertex1", &testData);
-    Vertex* vertex2 = addVertex(graph, (void*)"vertex2", NULL);
-    Vertex* vertex3 = addVertex(graph, (void*)"vertex3", NULL);
+    Vertex* vertex1 = addVertex(graph, "vertex1", &testData);
+    Vertex* vertex2 = addVertex(graph, "vertex2", NULL);
+    Vertex* vertex3 = addVertex(graph, "vertex3", NULL);
 
-    Edge* edge = createEdge(vertex1,vertex2,true);
+    Edge* edge = createEdge(vertex1,vertex2, UNDIRECTED);
     deleteEdge(graph,edge, vertex1);
     munit_assert_null(edge);
     munit_assert_true(dllNumberOfElements(vertex1->edges) == 0);
@@ -214,16 +212,13 @@ MunitResult deleteEdge_undirected_test(const MunitParameter params[], void *data
     deleteEdge(graph,edge, NULL);
 
     //test wrong vertex
-    Edge* edge2 = createEdge(vertex1,vertex3,true);
+    Edge* edge2 = createEdge(vertex1,vertex3, UNDIRECTED);
     deleteEdge(graph,edge2,vertex2);
     munit_assert_true(dllNumberOfElements(vertex1->edges) == 1);
 
     //test NULL graph
     deleteEdge(NULL,edge2,vertex1);
 
-    deleteVertex(graph,&vertex1);
-    deleteVertex(graph,&vertex2);
-    deleteVertex(graph,&vertex3);
     graphDelete(&graph);
 }
 MunitResult deleteEdge_directed_test(const MunitParameter params[], void *data)
@@ -233,20 +228,88 @@ MunitResult deleteEdge_directed_test(const MunitParameter params[], void *data)
 
     Graph* graph = createGraph();
     int testData = 1;
-    Vertex* vertex1 = addVertex(graph, (void*)"vertex1", &testData);
-    Vertex* vertex2 = addVertex(graph, (void*)"vertex2", NULL);
-    Vertex* vertex3 = addVertex(graph, (void*)"vertex3", NULL);
+    Vertex* vertex1 = addVertex(graph, "vertex1", &testData);
+    Vertex* vertex2 = addVertex(graph, "vertex2", NULL);
+    Vertex* vertex3 = addVertex(graph, "vertex3", NULL);
 
-    Edge* edge = createEdge(vertex1,vertex2,false);
+    Edge* edge = createEdge(vertex1,vertex2, DIRECTED);
     deleteEdge(graph,edge, vertex1);
     munit_assert_null(edge);
     munit_assert_true(dllNumberOfElements(vertex1->edges) == 0);
     munit_assert_true(dllNumberOfElements(vertex2->edges) == 0);
 
+    graphDelete(&graph);
+}
+MunitResult printConnections_test(const MunitParameter params[], void *data)
+{
+    (void)params; // parameter not used (prevent warning)
+    (void)data;
 
-    deleteVertex(graph,&vertex1);
-    deleteVertex(graph,&vertex2);
-    deleteVertex(graph,&vertex3);
+    //it's not possible to test the printed result so its only a crash test
+    Graph* graph = createGraph();
+
+    int testData = 1;
+    Vertex* vertex1 = addVertex(graph, "vertex1", &testData);
+    Vertex* vertex2 = addVertex(graph, "vertex2", NULL);
+    Vertex* vertex3 = addVertex(graph, "vertex3", NULL);
+
+
+    Edge* edge = createEdge(vertex1,vertex2, UNDIRECTED);
+    Edge* edge2 = createEdge(vertex3,vertex1, DIRECTED);
+
+    vertexPrintConnections(graph,vertex1);
+    vertexPrintConnections(NULL,vertex1);
+    vertexPrintConnections(graph,NULL);
+
+
+    graphDelete(&graph);
+}
+MunitResult searchVectorByNameTest(const MunitParameter params[], void *data)
+{
+    (void)params; // parameter not used (prevent warning)
+    (void)data;
+
+    //it's not possible to test the printed result so its only a crash test
+    Graph* graph = createGraph();
+
+    int testData = 1;
+    Vertex* vertex1 = addVertex(graph, "vertex1", &testData);
+    Vertex* vertex2 = addVertex(graph, "vertex2", NULL);
+    Vertex* vertex3 = addVertex(graph, "vertex3", NULL);
+    Edge* edge = createEdge(vertex1,vertex2, UNDIRECTED);
+    Edge* edge2 = createEdge(vertex3,vertex1, DIRECTED);
+
+    munit_assert_null(searchVertexByName(NULL,"vertex1"));
+    munit_assert_null(searchVertexByName(graph, NULL));
+
+    munit_assert_ptr_equal(searchVertexByName(graph,"vertex1"), vertex1);
+    munit_assert_ptr_equal(searchVertexByName(graph,"vertex2"), vertex2);
+    munit_assert_ptr_equal(searchVertexByName(graph,"vertex3"), vertex3);
+
+    munit_assert_null(searchVertexByName(graph,"vertex"));
+
+
+
+    graphDelete(&graph);
+}
+MunitResult graphClearTest(const MunitParameter params[], void *data)
+{
+    (void)params; // parameter not used (prevent warning)
+    (void)data;
+
+    Graph* graph = createGraph();
+
+    int testData = 1;
+    Vertex* vertex1 = addVertex(graph, "vertex1", &testData);
+    Vertex* vertex2 = addVertex(graph, "vertex2", NULL);
+    Vertex* vertex3 = addVertex(graph, "vertex3", NULL);
+    Edge* edge = createEdge(vertex1,vertex2, UNDIRECTED);
+    Edge* edge2 = createEdge(vertex3,vertex1, DIRECTED);
+
+    clear(graph);
+    munit_assert_true(numberOfVertexs(graph) == 0);
+
+
     graphDelete(&graph);
 }
 /* These tests contain only valid operations. These should always succeed. */
@@ -262,6 +325,9 @@ MunitTest tests_valid[] =
     {"/createEdge with weight test", createEdgeWithWeight_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/deleteEdge undirected test", deleteEdge_undirected_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/deleteEdge directed test", deleteEdge_directed_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+    {"/print connections test", printConnections_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+    {"/searchVertexByName test", searchVectorByNameTest, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+    {"/graph clear test", graphClearTest, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
 
     /* Mark the end of the array with an entry where the test function is NULL */
     {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
