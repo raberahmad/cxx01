@@ -108,15 +108,40 @@ void vertexPrintConnections(Graph* graph, Vertex* pointOfView){
 
 
 Vertex* searchVertexByName(Graph* graph, char* name){
+    if(name == NULL) return NULL;
+    if(graph == NULL) return NULL;
+
+    DllNode* tmp = malloc(sizeof(DllNode));
+    tmp = graph->vertices->head;
+    Vertex* tmpVertex = malloc(sizeof(Vertex));
+
+   while (tmp)
+   {
+       tmpVertex = tmp->data;
+       if(strcmp(name, tmpVertex->name) != 0){
+            Vertex* returnVertex = tmpVertex;
+            tmpVertex = NULL;
+            tmp = NULL;
+            free(tmp);
+            free(tmpVertex);
+            
+            return returnVertex;
+       }
+
+       tmp=tmp->next;
+   }
+
     return NULL;
 }
 
 void clear(Graph *graph)
 {
+    if(graph == NULL) return;
 
 }
 
-void clearFloatingVertexes()
+void clearFloatingVertexes(Graph* graph)
 {
+    if(graph == NULL) return;
 
 }

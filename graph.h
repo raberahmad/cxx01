@@ -18,7 +18,8 @@ typedef struct
 } Vertex;
 
 typedef struct
-{
+{   
+    Vertex* from;
     Vertex* destination;
     int weight;
 } Edge;
@@ -62,5 +63,5 @@ Vertex* searchVertexByName(Graph* graph, char* name);
 void clear(Graph* graph);
 
 //clear all vertexes that are not connected
-void clearFloatingVertexes(void);
+void clearFloatingVertexes(Graph* graph);
 #endif
