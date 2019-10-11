@@ -51,10 +51,10 @@ void deleteVertex(Graph *graph, Vertex** ptrToDeleteVertex){
     free((*ptrToDeleteVertex)->name);
     dllDelete(&(*ptrToDeleteVertex)->edges);
 
-    if((*ptrToDeleteVertex)->data != NULL)
-    {
-        free((*ptrToDeleteVertex)->data);//who is the owner of data?
-    }
+//    if((*ptrToDeleteVertex)->data != NULL)
+//    {
+//        free((*ptrToDeleteVertex)->data);//who is the owner of data?
+//    }
 
     dllDeleteNode(graph->vertices, (*ptrToDeleteVertex)->ptrToNode);
     (*ptrToDeleteVertex)->ptrToNode = NULL;
@@ -79,14 +79,14 @@ Edge* createEdgeWithWeight(Vertex* from, Vertex* destination,int weight, bool di
     edge->destination=destination;
     edge->weight=weight;
 
-    dllAddAfterTail(from->edges, edge);
+    edge->ptrToNode = dllAddAfterTail(from->edges, edge);
 
     if (directed == UNDIRECTED){
         Edge *edge2= malloc(sizeof(Edge));
-        edge->destination=from;
-        edge->weight=weight;
+        edge2->destination=from;
+        edge2->weight=weight;
 
-        dllAddAfterTail(destination->edges, edge2);
+        edge2->ptrToNode = dllAddAfterTail(destination->edges, edge2);
     }
     return edge;
 }
@@ -98,12 +98,13 @@ void deleteEdge(Graph* graph, Edge *toDeleteEdge, Vertex* connectedVertex){
 
     toDeleteEdge->destination = NULL;
     toDeleteEdge->weight = 0;
-    dllDeleteNode(connectedVertex, toDeleteEdge);
+    dllDeleteNode(connectedVertex->edges, toDeleteEdge->ptrToNode);
     free(toDeleteEdge);
 }
 
 void vertexPrintConnections(Graph* graph, Vertex* pointOfView){
     if (graph == NULL) return;
+    if (pointOfView == NULL) return;
     if (pointOfView->edges->head == NULL) return;
     
     DllNode* node = pointOfView->edges->head;
@@ -111,7 +112,7 @@ void vertexPrintConnections(Graph* graph, Vertex* pointOfView){
     {
         printf("Connected vertexes %s", ((Edge*)node->data)->destination->name);
         node = node->next;
-    } 
+    }
 }
 
 
@@ -124,6 +125,7 @@ Vertex* searchVertexByName(Graph* graph, char* name){
    {
        if(strcmp(name, ((Vertex*)tmp->data)->name) == 0){          
             return (Vertex*)tmp->data;
+       }
        tmp=tmp->next;
    }
 

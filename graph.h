@@ -22,6 +22,7 @@ typedef struct
     Vertex* from;
     Vertex* destination;
     int weight;
+    DllNode* ptrToNode;
 } Edge;
 
 typedef struct

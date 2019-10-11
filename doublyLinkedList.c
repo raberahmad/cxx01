@@ -137,7 +137,7 @@ void dllDeleteNode(DoublyLinkedList *theList, DllNode* theNode)
         theNode->next->previous = theNode->previous;
         theNode->previous->next = theNode->next;
     }
-    free(theNode->data);
+    //free(theNode->data);
     free(theNode);
 }
 DllNode *dllFindFirst(DoublyLinkedList *theList, bool (*predicate)(void *d1, void *d2), void *theData)
