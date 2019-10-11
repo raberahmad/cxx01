@@ -103,7 +103,15 @@ void deleteEdge(Graph* graph, Edge *toDeleteEdge, Vertex* connectedVertex){
 }
 
 void vertexPrintConnections(Graph* graph, Vertex* pointOfView){
-    //
+    if (graph == NULL) return;
+    if (pointOfView->edges->head == NULL) return;
+    
+    DllNode* node = pointOfView->edges->head;
+    while (node)
+    {
+        printf("Connected vertexes %s", ((Edge*)node->data)->destination->name);
+        node = node->next;
+    } 
 }
 
 
@@ -111,23 +119,11 @@ Vertex* searchVertexByName(Graph* graph, char* name){
     if(name == NULL) return NULL;
     if(graph == NULL) return NULL;
 
-    DllNode* tmp = malloc(sizeof(DllNode));
-    tmp = graph->vertices->head;
-    Vertex* tmpVertex = malloc(sizeof(Vertex));
-
+    DllNode* tmp = graph->vertices->head;
    while (tmp)
    {
-       tmpVertex = tmp->data;
-       if(strcmp(name, tmpVertex->name) != 0){
-            Vertex* returnVertex = tmpVertex;
-            tmpVertex = NULL;
-            tmp = NULL;
-            free(tmp);
-            free(tmpVertex);
-            
-            return returnVertex;
-       }
-
+       if(strcmp(name, ((Vertex*)tmp->data)->name) == 0){          
+            return (Vertex*)tmp->data;
        tmp=tmp->next;
    }
 
@@ -138,6 +134,9 @@ void clear(Graph *graph)
 {
     if(graph == NULL) return;
 
+
+    
+    
 }
 
 void clearFloatingVertexes(Graph* graph)

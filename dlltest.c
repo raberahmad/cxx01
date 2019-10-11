@@ -1,51 +1,51 @@
-//#include "munit.h"
-//#include "doublyLinkedList.h"
-//#include <stdio.h>
+// #include "munit.h"
+// #include "doublyLinkedList.h"
+// #include <stdio.h>
 
-///* For dynamic tests */
-//#define MAX_LIST_LENGTH 12
-//typedef struct
-//{
+// /* For dynamic tests */
+// #define MAX_LIST_LENGTH 12
+// typedef struct
+// {
 //    DoublyLinkedList *dll;
 //    DllNode *nodes[MAX_LIST_LENGTH+1];
-//} t_list;
-//static int listData[MAX_LIST_LENGTH] = {4, 7, -6, 3, 9, 7, 18, 112, 5, 8, -2, 5};
+// } t_list;
+// static int listData[MAX_LIST_LENGTH] = {4, 7, -6, 3, 9, 7, 18, 112, 5, 8, -2, 5};
 
-///* Predicate functions to test the find functions */
-//bool intGreatherThan(void *d1, void *d2)
-//{
+// /* Predicate functions to test the find functions */
+// bool intGreatherThan(void *d1, void *d2)
+// {
 //    if (d1 == 0 || d2 == 0) return false;
 //    return *(int*)d1 > *(int*)d2;
-//}
+// }
 
-//bool doubleGreatherThan(void *d1, void *d2)
-//{
+// bool doubleGreatherThan(void *d1, void *d2)
+// {
 //    if (d1 == 0 || d2 == 0) return false;
 //    return *(double*)d1 > *(double*)d2;
-//}
+// }
 
-//bool intLessThan(void *d1, void *d2)
-//{
+// bool intLessThan(void *d1, void *d2)
+// {
 //    if (d1 == 0 || d2 == 0) return false;
 //    return *(int*)d1 < *(int*)d2;
-//}
+// }
 
-//bool intEqual(void *d1, void *d2)
-//{
+// bool intEqual(void *d1, void *d2)
+// {
 //    if (d1 == 0 || d2 == 0) return d1 == 0 && d2 == 0;
 //    return *(int*)d1 == *(int*)d2;
-//}
+// }
 
-//bool isAlwaysFalse(void *d1, void *d2)
-//{
+// bool isAlwaysFalse(void *d1, void *d2)
+// {
 //    (void)d1; // parameter not used (prevent warning)
 //    (void)d2;
 //    return false;
-//}
+// }
 
-///* Dynamically create a list */
-//static void* createTestList(const MunitParameter params[], void* data)
-//{
+// /* Dynamically create a list */
+// static void* createTestList(const MunitParameter params[], void* data)
+// {
 //    (void)data; // parameter not used (prevent warning)
 //    t_list *list = malloc(sizeof(t_list));
 
@@ -71,21 +71,21 @@
 //    list->nodes[i] = NULL;
 
 //    return (void*)list;
-//}
+// }
 
-///* Cleanup list */
-//static void destroyTestList(void* list)
-//{
+// /* Cleanup list */
+// static void destroyTestList(void* list)
+// {
 //    DoublyLinkedList *lst = ((t_list *)list)->dll;
 //    if(lst != NULL)
 //    {
 //        dllDelete(&lst);
 //    }
 //    free((t_list *)list);
-//}
+// }
 
-//MunitResult dllCreate_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllCreate_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -96,10 +96,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllDelete_empty(const MunitParameter params[], void *data)
-//{
+// MunitResult dllDelete_empty(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -110,10 +110,10 @@
 //    munit_assert_null(lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllDelete_filled(const MunitParameter params[], void *data)
-//{
+// MunitResult dllDelete_filled(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    t_list* testlist = (t_list*)data;
 //    dllDelete(&(testlist->dll));
@@ -121,10 +121,10 @@
 //    munit_assert_null(testlist->dll);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddBeforeHead_first(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddBeforeHead_first(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lsta = dllCreate();
@@ -160,10 +160,10 @@
 //    dllDelete(&lstb);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddBeforeHead_second(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddBeforeHead_second(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -183,10 +183,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddBeforeHead_third(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddBeforeHead_third(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -209,10 +209,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddBeforeHead_null(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddBeforeHead_null(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -235,10 +235,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddAfterTail_first(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddAfterTail_first(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -256,10 +256,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddAfterTail_second(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddAfterTail_second(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -279,10 +279,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddAfterTail_third(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddAfterTail_third(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -305,10 +305,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddAfterTail_null(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddAfterTail_null(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -331,10 +331,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddAfter_NodeNotInList(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddAfter_NodeNotInList(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -348,10 +348,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddAfter_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddAfter_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -387,10 +387,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddBefore_NodeNotInList(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddBefore_NodeNotInList(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -404,10 +404,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllAddBefore_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllAddBefore_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -443,10 +443,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllDeleteNode_one(const MunitParameter params[], void *data)
-//{
+// MunitResult dllDeleteNode_one(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -460,10 +460,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllDeleteNode_two(const MunitParameter params[], void *data)
-//{
+// MunitResult dllDeleteNode_two(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -493,10 +493,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllDeleteNode_three(const MunitParameter params[], void *data)
-//{
+// MunitResult dllDeleteNode_three(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -514,10 +514,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllDeleteNode_null(const MunitParameter params[], void *data)
-//{
+// MunitResult dllDeleteNode_null(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -535,10 +535,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllFindFirst_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllFindFirst_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    int intList[6] = {7, -5, 8, -1, 7, 9};
@@ -572,10 +572,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllFindFirstNull_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllFindFirstNull_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    int intList[5] = {7, -5, 8, -1, 7};
@@ -604,10 +604,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllFindFirstDouble_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllFindFirstDouble_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    double intList[6] = {7.3, -5.3, 8.3, -1.3, 7.3, 9.3};
@@ -641,10 +641,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllFindLast_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllFindLast_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    int intList[6] = {17, -5, 8, -1, 7, 9};
@@ -678,10 +678,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllFindBefore_NodeNotInList(const MunitParameter params[], void *data)
-//{
+// MunitResult dllFindBefore_NodeNotInList(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -696,10 +696,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllFindBefore_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllFindBefore_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    int intList[6] = {7, -5, 8, -1, 7, 8};
@@ -750,10 +750,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllFindAfter_NodeNotInList(const MunitParameter params[], void *data)
-//{
+// MunitResult dllFindAfter_NodeNotInList(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    DoublyLinkedList *lst = dllCreate();
@@ -768,10 +768,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllFindAfter_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllFindAfter_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    int intList[6] = {7, -5, 8, -1, 7, 8};
@@ -818,10 +818,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllNumberOfElements_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllNumberOfElements_test(const MunitParameter params[], void *data)
+// {
 //    DoublyLinkedList *lst = ((t_list*)data)->dll;
 //    munit_assert_not_null(lst);
 
@@ -830,21 +830,21 @@
 //    munit_assert_size(length, ==, listLength);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//static char* length_params[] =
-//{
+// static char* length_params[] =
+// {
 //    "0", "1", "3", "12", NULL
-//};
+// };
 
-//static MunitParameterEnum listLength_params[] =
-//{
+// static MunitParameterEnum listLength_params[] =
+// {
 //    {"listlength", length_params},
 //    {NULL, NULL },
-//};
+// };
 
-//MunitResult dllTheListNull_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllTheListNull_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -889,10 +889,10 @@
 //    dllDelete(&lst2);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllTheNodeNull_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllTheNodeNull_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -914,10 +914,10 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult dllPredicateNull_test(const MunitParameter params[], void *data)
-//{
+// MunitResult dllPredicateNull_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -940,11 +940,11 @@
 //    dllDelete(&lst);
 
 //    return MUNIT_OK;
-//}
+// }
 
-///* These tests contain only valid operations. These should always succeed. */
-//MunitTest tests_valid[] =
-//{
+// /* These tests contain only valid operations. These should always succeed. */
+// MunitTest tests_valid[] =
+// {
 //    /* {name, testfunction, setupfunction, teardownfunction, options, parameters} */
 //    {"/dllCreate", dllCreate_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
 //    {"/dllDelete Empty List", dllDelete_empty, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
@@ -975,11 +975,11 @@
 //    {"/dllPredicateNull", dllPredicateNull_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
 //    /* Mark the end of the array with an entry where the test function is NULL */
 //    {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
-//};
+// };
 
-///* These tests contain invalid operations. These tests are allowed to fail or result in a crash. */
-//MunitTest tests_invalid[] =
-//{
+// /* These tests contain invalid operations. These tests are allowed to fail or result in a crash. */
+// MunitTest tests_invalid[] =
+// {
 //    /* {name, testfunction, setupfunction, teardownfunction, options, parameters} */
 //    {"/dllAddAfter illegal Operations", dllAddAfter_NodeNotInList, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
 //    {"/dllAddBefore illegal operations", dllAddBefore_NodeNotInList, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
@@ -987,29 +987,29 @@
 //    {"/dllFindBefore illegal operations", dllFindBefore_NodeNotInList, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
 //    /* Mark the end of the array with an entry where the test function is NULL */
 //    {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
-//};
+// };
 
-//static const MunitSuite suite_legal =
-//{
+// static const MunitSuite suite_legal =
+// {
 //    "DLL", /* name */
 //    tests_valid, /* tests */
 //    NULL, /* suites */
 //    1, /* iterations */
 //    MUNIT_SUITE_OPTION_NONE /* options */
-//};
+// };
 
-//static const MunitSuite suite_illegal =
-//{
+// static const MunitSuite suite_illegal =
+// {
 //    "DLL_INV", /* name */
 //    tests_invalid, /* tests */
 //    NULL, /* suites */
 //    1, /* iterations */
 //    MUNIT_SUITE_OPTION_NONE /* options */
-//};
+// };
 
-//#define RUN_SUITE_ILLEGAL 0
-//int main(int argc, char* argv[MUNIT_ARRAY_PARAM(argc + 1)])
-//{
+// #define RUN_SUITE_ILLEGAL 0
+// int main(int argc, char* argv[MUNIT_ARRAY_PARAM(argc + 1)])
+// {
 //    int ret = munit_suite_main(&suite_legal, (void*) "DLL", argc, argv);
 //    #if RUN_SUITE_ILLEGAL == 1
 //    // The tests in suite_illegal are allowed to fail or the crash the program.
@@ -1020,4 +1020,4 @@
 //    #endif
 
 //    return ret;
-//}
+// }
