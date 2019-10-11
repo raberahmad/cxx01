@@ -79,7 +79,7 @@ MunitResult deleteVertexTest(const MunitParameter params[], void *data)
     Graph* graph = createGraph();
     int testData = 1;
     Vertex* vertex1 = addVertex(graph, "testname",NULL);
-    Vertex* vertex2 = addVertex(graph, "vertex2",&testData);
+    Vertex* vertex2 = addVertex(graph, "vertex2",NULL);
     munit_assert_true(numberOfVertexs(graph) == 2);
 
     munit_assert_not_null(vertex1);
@@ -158,6 +158,8 @@ MunitResult createEdge_test(const MunitParameter params[], void *data)
 //    munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
 
     graphDelete(&graph);
+
+    return MUNIT_OK;
 }
 MunitResult createEdgeWithWeight_test(const MunitParameter params[], void *data)
 {
@@ -190,6 +192,7 @@ MunitResult createEdgeWithWeight_test(const MunitParameter params[], void *data)
 
 
     graphDelete(&graph);
+    return MUNIT_OK;
 }
 MunitResult deleteEdge_undirected_test(const MunitParameter params[], void *data)
 {
@@ -221,6 +224,8 @@ MunitResult deleteEdge_undirected_test(const MunitParameter params[], void *data
     deleteEdge(NULL,edge2,vertex1);
 
     graphDelete(&graph);
+    return MUNIT_OK;
+
 }
 MunitResult deleteEdge_directed_test(const MunitParameter params[], void *data)
 {
@@ -240,6 +245,8 @@ MunitResult deleteEdge_directed_test(const MunitParameter params[], void *data)
     munit_assert_true(dllNumberOfElements(vertex2->edges) == 0);
 
     graphDelete(&graph);
+    return MUNIT_OK;
+
 }
 MunitResult printConnections_test(const MunitParameter params[], void *data)
 {
@@ -264,6 +271,8 @@ MunitResult printConnections_test(const MunitParameter params[], void *data)
 
 
     graphDelete(&graph);
+    return MUNIT_OK;
+
 }
 MunitResult searchVectorByNameTest(const MunitParameter params[], void *data)
 {
@@ -292,6 +301,8 @@ MunitResult searchVectorByNameTest(const MunitParameter params[], void *data)
 
 
     graphDelete(&graph);
+    return MUNIT_OK;
+
 }
 MunitResult graphClearTest(const MunitParameter params[], void *data)
 {
@@ -312,6 +323,8 @@ MunitResult graphClearTest(const MunitParameter params[], void *data)
 
 
     graphDelete(&graph);
+    return MUNIT_OK;
+
 }
 MunitResult cursorTest(const MunitParameter params[], void *data)
 {
@@ -357,6 +370,8 @@ MunitResult cursorTest(const MunitParameter params[], void *data)
 
 
     graphDelete(&graph);
+    return MUNIT_OK;
+
 }/* These tests contain only valid operations. These should always succeed. */
 MunitTest tests_valid[] =
 {
@@ -373,7 +388,6 @@ MunitTest tests_valid[] =
     {"/print connections test", printConnections_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/searchVertexByName test", searchVectorByNameTest, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/graph clear test", graphClearTest, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-
     {"/full cursor test", cursorTest, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
 
     /* Mark the end of the array with an entry where the test function is NULL */

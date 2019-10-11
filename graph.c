@@ -7,8 +7,11 @@ Graph* createGraph(void){
 
     newGraph->vertices = dllCreate();
 
-    if (newGraph->vertices == NULL) return NULL;
-
+    if (newGraph->vertices == NULL)
+    {
+        free(newGraph);
+        return NULL;
+    }
     return newGraph;
 }
 
@@ -29,6 +32,7 @@ Vertex* addVertex(Graph *graph, char* name, void* data){
     if (name == NULL) return NULL;
 
     Vertex *newVertex = malloc(sizeof(Vertex));
+    if(newVertex == NULL)return NULL;
     newVertex->data = data;
 
     //copy the name to give the owernership to the graph library
@@ -36,7 +40,12 @@ Vertex* addVertex(Graph *graph, char* name, void* data){
     strcpy(newVertex->name, name);
 
     newVertex->ptrToNode = dllAddAfterTail(graph->vertices, newVertex);
-
+    if(newVertex->ptrToNode == NULL)
+    {
+        free(newVertex->name);
+        free(newVertex);
+        return NULL;
+    }
     newVertex->edges = dllCreate();
 
     return newVertex;
@@ -47,20 +56,19 @@ void deleteVertex(Graph *graph, Vertex** ptrToDeleteVertex){
     if(ptrToDeleteVertex == NULL)return;
     if(*ptrToDeleteVertex == NULL)return;
 
-
     free((*ptrToDeleteVertex)->name);
-    dllDelete(&(*ptrToDeleteVertex)->edges);
+    dllDelete(&((*ptrToDeleteVertex)->edges));
 
-//    if((*ptrToDeleteVertex)->data != NULL)
-//    {
-//        free((*ptrToDeleteVertex)->data);//who is the owner of data?
-//    }
+    (*ptrToDeleteVertex)->ptrToNode->data = NULL;
 
     dllDeleteNode(graph->vertices, (*ptrToDeleteVertex)->ptrToNode);
     (*ptrToDeleteVertex)->ptrToNode = NULL;
 
     free(*ptrToDeleteVertex);
     *ptrToDeleteVertex = NULL;
+
+    *ptrToDeleteVertex = NULL;
+    ptrToDeleteVertex = NULL;
 }
 
 size_t numberOfVertexs(Graph* graph){
@@ -111,7 +119,13 @@ void vertexPrintConnections(Graph* graph, Vertex* pointOfView){
     DllNode* node = pointOfView->edges->head;
     while (node)
     {
-        printf("Connected vertexes %s", ((Edge*)node->data)->destination->name);
+        if(((Edge*)node->data)->weight == 0)
+        {
+            printf("Connected vertexes \"%s\"\n", ((Edge*)node->data)->destination->name);
+        }
+        else {
+            printf("Connected vertexes \"%s\" weigth: &d\n", ((Edge*)node->data)->destination->name,((Edge*)node->data)->weight);
+        }
         node = node->next;
     }
 }
@@ -137,28 +151,16 @@ void clear(Graph *graph)
 {
     if(graph == NULL) return;
     if((graph->vertices)->head == NULL) return;
-
-    DllNode* loopNode = malloc(sizeof(DllNode));
-    loopNode = (graph->vertices)->head;
-
-
-    while (loopNode)
-    {
-        dllDelete(&(((Vertex*)loopNode->data)->edges));
-        loopNode = loopNode->next;
-    }
-
-    loopNode = NULL;
-    loopNode = (graph->vertices)->head;
     
-    while (dllNumberOfElements(graph->vertices) != 0)
+    while (graph->vertices->head != NULL)
     {
-        dllDeleteNode(graph->vertices, loopNode);
-        loopNode = (graph->vertices)->head;
+        DllNode* node = graph->vertices->head;
+        dllDelete(&(((Vertex*)node->data)->edges));
+        free(((Vertex*)node->data)->name);
+        dllDeleteNode(graph->vertices, node);
+        //the edge and vertex objects will be freeed by the doublelinkedlist because the library will free the data
     }
     
-    loopNode = NULL;
-    free(loopNode);
 }
 
 void clearFloatingVertexes(Graph* graph)
