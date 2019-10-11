@@ -183,10 +183,10 @@ MunitResult createEdgeWithWeight_test(const MunitParameter params[], void *data)
     munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
     munit_assert_true(((Edge*)vertex2->edges->head->data)->weight == 0);
 
+
     createEdgeWithWeight(vertex1,vertex3,100, UNDIRECTED);
     munit_assert_true(((Edge*)vertex3->edges->head->data)->weight == 100);
     munit_assert_true(((Edge*)vertex3->edges->head->data)->destination == vertex1);
-    munit_assert_true(((Edge*)vertex1->edges->head->data)->destination == vertex3);
 
 
     graphDelete(&graph);
