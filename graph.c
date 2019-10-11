@@ -75,6 +75,7 @@ Edge* createEdge(Vertex* from, Vertex* destination, bool directed){
 Edge* createEdgeWithWeight(Vertex* from, Vertex* destination,int weight, bool directed){
     if (from == NULL) return NULL;
     if (destination == NULL) return NULL;
+    
     Edge *edge= malloc(sizeof(Edge));
     edge->destination=destination;
     edge->weight=weight;
@@ -135,10 +136,29 @@ Vertex* searchVertexByName(Graph* graph, char* name){
 void clear(Graph *graph)
 {
     if(graph == NULL) return;
+    if((graph->vertices)->head == NULL) return;
+
+    DllNode* loopNode = malloc(sizeof(DllNode));
+    loopNode = (graph->vertices)->head;
 
 
+    while (loopNode)
+    {
+        dllDelete(&(((Vertex*)loopNode->data)->edges));
+        loopNode = loopNode->next;
+    }
+
+    loopNode = NULL;
+    loopNode = (graph->vertices)->head;
     
+    while (dllNumberOfElements(graph->vertices) != 0)
+    {
+        dllDeleteNode(graph->vertices, loopNode);
+        loopNode = (graph->vertices)->head;
+    }
     
+    loopNode = NULL;
+    free(loopNode);
 }
 
 void clearFloatingVertexes(Graph* graph)
