@@ -21,12 +21,16 @@ GraphCursor* copyGraphCursor(GraphCursor* cursor);
 
 void deleteCursor(GraphCursor** ptrToCursor);
 
-void CursorSetCurrentVertex(Graph* graph, Vertex* vertex);
+void cursorSetCurrentVertex(GraphCursor *cursor, Graph* graph, Vertex* vertex);
 
 int cursorAvailable(GraphCursor* cursor);
+Edge* cursorEdgeAt(GraphCursor* cursor, int index);
 Vertex* cursorAt(GraphCursor* cursor, int index);
 void cursorMoveInto(GraphCursor* cursor, int index);
 Vertex* cursorGetCurrentVertex(GraphCursor* cursor);
 void* cursorGetCurrentData(GraphCursor* cursor);
+
+void cursorDeleteCurrentVertex(GraphCursor *cursor);
+void cursorDeleteEdgeAt(GraphCursor *cursor, int index);
 
 #endif // GRAPHCURSOR_H

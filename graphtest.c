@@ -1,6 +1,7 @@
 
 #include "munit.h"
 #include "graph.h"
+#include "graphcursor.h"
 #include <stdio.h>
 
 MunitResult graphCreate_test(const MunitParameter params[], void *data)
@@ -312,14 +313,58 @@ MunitResult graphClearTest(const MunitParameter params[], void *data)
 
     graphDelete(&graph);
 }
-/* These tests contain only valid operations. These should always succeed. */
+MunitResult cursorTest(const MunitParameter params[], void *data)
+{
+    (void)params; // parameter not used (prevent warning)
+    (void)data;
+
+    Graph* graph = createGraph();
+
+    int testData = 1;
+    Vertex* vertex1 = addVertex(graph, "vertex1", &testData);
+    Vertex* vertex2 = addVertex(graph, "vertex2", NULL);
+    Vertex* vertex3 = addVertex(graph, "vertex3", NULL);
+    Vertex* vertex4 = addVertex(graph, "vertex4", NULL);
+
+    Edge* edge = createEdge(vertex1,vertex2, UNDIRECTED);
+    Edge* edge2 = createEdge(vertex3,vertex1, DIRECTED);
+    Edge* edge3 = createEdge(vertex3,vertex2, DIRECTED);
+    Edge* edge4 = createEdge(vertex3,vertex4, DIRECTED);
+    Edge* edge5 = createEdge(vertex1,vertex4, DIRECTED);
+
+    GraphCursor* cursor = createCursor();
+    cursorSetCurrentVertex(cursor, graph, vertex1);
+
+    munit_assert_true(cursorAvailable(cursor) == 2);
+    munit_assert_ptr_equal(cursorAt(cursor,0), vertex2);
+    munit_assert_ptr_equal(cursorAt(cursor,1), vertex4);
+
+    cursorMoveInto(cursor,0);
+    munit_assert_ptr_equal(cursorGetCurrentVertex(cursor),vertex2);
+    munit_assert_ptr_equal(cursorAt(cursor,0), vertex1);
+    munit_assert_true(cursorAvailable(cursor) == 1);
+
+    cursorSetCurrentVertex(cursor, graph, vertex3);
+    munit_assert_true(cursorAvailable(cursor) == 3);
+
+    deleteEdge(graph, cursorEdgeAt(cursor, 0), cursor->currentVertex);
+
+    munit_assert_true(cursorAvailable(cursor) == 2);
+
+    cursorDeleteCurrentVertex(cursor);
+    munit_assert_true(cursorAvailable(cursor) == 0);
+    munit_assert_true(numberOfVertexs(graph) == 3);
+
+
+    graphDelete(&graph);
+}/* These tests contain only valid operations. These should always succeed. */
 MunitTest tests_valid[] =
 {
     /* {name, testfunction, setupfunction, teardownfunction, options, parameters} */
     {"/graphCreate", graphCreate_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/graphDelete Empty List", graphDelete_empty, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/addVertex test", addVertex_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
-    //{"/deleteVertex test", deleteVertexTest, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+    {"/deleteVertex test", deleteVertexTest, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/numberOfVertices test", numberOfVertices_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/createEdge test", createEdge_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/createEdge with weight test", createEdgeWithWeight_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
@@ -328,6 +373,8 @@ MunitTest tests_valid[] =
     {"/print connections test", printConnections_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/searchVertexByName test", searchVectorByNameTest, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
     {"/graph clear test", graphClearTest, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
+
+    {"/full cursor test", cursorTest, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
 
     /* Mark the end of the array with an entry where the test function is NULL */
     {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
