@@ -5,7 +5,6 @@ GraphCursor *createCursor()
 {
     GraphCursor* cursor = malloc(sizeof (GraphCursor));
     cursor->graph = NULL;
-    cursor->lastVertex = NULL;
     cursor->currentVertex = NULL;
     return cursor;
 }
@@ -14,7 +13,6 @@ GraphCursor *copyGraphCursor(GraphCursor *cursor)
 {
     GraphCursor* copy = malloc(sizeof (GraphCursor));
     copy->graph = cursor->graph;
-    copy->lastVertex = cursor->lastVertex;
     copy->currentVertex = cursor->currentVertex;
     return copy;
 }
@@ -26,7 +24,6 @@ void cursorSetCurrentVertex(GraphCursor *cursor, Graph *graph, Vertex *vertex)
     if(cursor == NULL) return;
 
     cursor->graph = graph;
-    cursor->lastVertex = cursor->currentVertex;
     cursor->currentVertex = vertex;
 }
 

@@ -11,7 +11,6 @@ typedef struct
 {
     Graph* graph;
     Vertex* currentVertex;
-    Vertex* lastVertex;
 } GraphCursor;
 
 
