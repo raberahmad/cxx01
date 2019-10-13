@@ -10,6 +10,7 @@ DoublyLinkedList *dllCreate(void)
 }
 void dllDelete(DoublyLinkedList **ptrTheList)
 {
+
     if(ptrTheList == NULL)return;
     if(*ptrTheList == NULL)return;
     DllNode *currentNode = (*ptrTheList)->head;
@@ -138,10 +139,6 @@ void dllDeleteNode(DoublyLinkedList *theList, DllNode* theNode)
         theNode->previous->next = theNode->next;
     }
 
-    if(theNode->data != NULL)
-    {
-        free(theNode->data);
-    }
     free(theNode);
 }
 DllNode *dllFindFirst(DoublyLinkedList *theList, bool (*predicate)(void *d1, void *d2), void *theData)
