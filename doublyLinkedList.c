@@ -213,8 +213,6 @@ DllNode *dllFindBefore(DoublyLinkedList *theList, DllNode *theNode, bool (*predi
     }
 
     return NULL;
-
-
 }
 size_t dllNumberOfElements(DoublyLinkedList *theList)
 {
