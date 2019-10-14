@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include "lib/munit/munit.h"
+#include "lib/graph/graph.h"
+#include "lib/cursor/graphcursor.h"
 
 #include "FileToGraph.h"
-#include "graph.h"
-#include "graphcursor.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +16,8 @@ int main(int argc, char *argv[])
     GraphCursor* cursor = createCursor();
 
     cursorSetCurrentVertex(cursor, graph, graph->vertices->head->data);
+
+
 
     return 0;
 }

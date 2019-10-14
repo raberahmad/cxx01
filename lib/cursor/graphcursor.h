@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "doublyLinkedList.h"
-#include "graph.h"
+#include "../dll/doublyLinkedList.h"
+#include "../graph/graph.h"
 
 typedef struct
 {

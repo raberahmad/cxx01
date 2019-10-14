@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
-#include "doublyLinkedList.h"
+#include "../dll/doublyLinkedList.h"
 
 #define UNDIRECTED 0
 #define DIRECTED 1
