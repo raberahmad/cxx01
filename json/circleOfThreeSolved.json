@@ -1,0 +1,35 @@
+{
+   "nodes":[
+      {
+         "id":1,
+         "label":"name1",
+         "color":"#FF8080"
+      },
+      {
+         "id":2,
+         "label":"name2",
+         "color":"#80FF80"
+      },
+      {
+         "id":3,
+         "label":"name3",
+         "color":"#8080FF"
+      }
+   ],
+   "edges":[
+      {
+         "from":1,
+         "to":2
+      },
+      {
+         "from":2,
+         "to":3
+      },
+      {
+         "from":3,
+         "to":1
+      }
+   ],
+   "directed":false,
+   "weighted":false
+}

@@ -1,0 +1,32 @@
+{
+   "nodes":[
+      {
+         "id":1,
+         "label":"name1"
+      },
+      {
+         "id":2,
+         "label":"name2"
+      },
+      {
+         "id":3,
+         "label":"name3"
+      }
+   ],
+   "edges":[
+      {
+         "from":1,
+         "to":2
+      },
+      {
+         "from":2,
+         "to":3
+      },
+      {
+         "from":3,
+         "to":1
+      }
+   ],
+   "directed":false,
+   "weighted":false
+}

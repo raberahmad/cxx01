@@ -1,0 +1,34 @@
+{
+   "nodes":[
+      {"id":1,"label":"Amsterdam","color":"#ff8080"},
+      {"id":2,"label":"Berlin","color":"#8080ff"},
+      {"id":3,"label":"Brussels","color":"#ff8080"},
+      {"id":4,"label":"Paris","color":"#ff8080"},
+      {"id":5,"label":"Frankfurt","color":"#8080ff"},
+      {"id":6,"label":"Prague","color":"#8080ff"},
+      {"id":7,"label":"Geneva","color":"#ff8080"},
+      {"id":8,"label":"Munich","color":"#8080ff"},
+      {"id":9,"label":"Grenoble","color":"#8080ff"},
+      {"id":10,"label":"Milan","color":"#ff8080"},
+      {"id":11,"label":"Florence","color":"#ff8080"}
+   ],
+   "edges":[
+      {"from":1, "to":2,"weight":690,"color":"#8080ff"},
+      {"from":1, "to":3,"weight":205,"color":"#ff8080"},
+      {"from":2, "to":6,"weight":380,"color":"#8080ff"},
+      {"from":3, "to":4,"weight":290,"color":"#ff8080"},
+      {"from":3, "to":5,"weight":405,"color":"#8080ff"},
+      {"from":4, "to":7,"weight":550,"color":"#ff8080"},
+      {"from":5, "to":6,"weight":530,"color":"#8080ff"},
+      {"from":5, "to":7,"weight":585,"color":"#8080ff"},
+      {"from":6, "to":8,"weight":360,"color":"#8080ff"},
+      {"from":7, "to":9,"weight":310,"color":"#8080ff"},
+      {"from":7, "to":10,"weight":410,"color":"#ff8080"},
+      {"from":8, "to":10,"weight":550,"color":"#8080ff"},
+      {"from":8, "to":11,"weight":650,"color":"#8080ff"},
+      {"from":9, "to":10,"weight":390,"color":"#8080ff"},
+      {"from":10, "to":11,"weight":250,"color":"#ff8080"}
+   ],
+   "directed":true,
+   "weighted":true
+}
