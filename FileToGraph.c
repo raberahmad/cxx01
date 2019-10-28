@@ -47,8 +47,6 @@ Graph* loadGraphFromFile(char* filename)
     graphInfo gi;
     parseError res = parse(filename, &gi);
 
-    // You have to create your own graph here using variable gi.
-    // In this program the graph information is only printed.
     Graph* graph = createGraph();
 
     nodeInfo* currentNode = gi.nodeStack;

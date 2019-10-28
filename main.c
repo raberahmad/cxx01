@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[])
 {
-    Graph* graph = loadGraphFromFile("json/cities.json");
+    Graph* graph = loadGraphFromFile("json/citiesShortestPath.json");
     if(graph == NULL) return 0;
 
     GraphCursor* cursor = createCursor();
