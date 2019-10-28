@@ -61,7 +61,6 @@ int main(int argc, char *argv[])
     if(graph == NULL) return 0;
 
     GraphCursor* cursor = createCursor();
-
     cursorSetCurrentVertex(cursor, graph, graph->vertices->head->data);
 
 

@@ -46,6 +46,10 @@ Graph* loadGraphFromFile(char* filename)
     printf("\nParsing %s\n", filename);
     graphInfo gi;
     parseError res = parse(filename, &gi);
+    if(res != OK)
+    {
+        return NULL;
+    }
 
     Graph* graph = createGraph();
 
@@ -54,7 +58,7 @@ Graph* loadGraphFromFile(char* filename)
     {
         int* nodeId = malloc(sizeof (int));
         *nodeId = currentNode->id;
-        addVertex(graph,"",nodeId);
+        addVertex(graph,currentNode->label,nodeId);
         currentNode = currentNode->next;
     }
 
@@ -70,11 +74,17 @@ Graph* loadGraphFromFile(char* filename)
             return NULL;
         }
 
-        createEdge(sourceNode->data, destinationNode->data, UNDIRECTED);
+        createEdgeWithWeight(sourceNode->data, destinationNode->data, currentEdge->weight ,UNDIRECTED);
 
         currentEdge = currentEdge->next;
     }
-
+    DllNode* currentVertex = graph->vertices->head;
+    while(currentVertex)
+    {
+        free(((Vertex*)currentVertex->data)->data);
+        ((Vertex*)currentVertex->data)->data = NULL;
+        currentVertex = currentVertex->next;
+    }
     printf("directed = %d\n", gi.isDirected);
     printf("weighted = %d\n", gi.isWeighted);
     if (gi.nodeStack != 0) printNodes(gi.nodeStack);
