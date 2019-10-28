@@ -54,17 +54,46 @@ void bellmanFordAlg(Graph* graphToSearch, Vertex* start, Vertex* destination){
 
 }
 
+typedef struct EdgeIteratorData
+{
+    DllNode* currentVertex;
+    DllNode* currentEdge;
+}EdgeIteratorData;
+
+Edge* setEdgeIterator(EdgeIteratorData* edgeIteratorData, Vertex* startVertex)
+{
+    edgeIteratorData->currentVertex = startVertex->ptrToNode;
+    edgeIteratorData->currentEdge = startVertex->edges->head;
+    return (Edge*)edgeIteratorData->currentEdge->data;
+}
+Edge* nextEdge(EdgeIteratorData* edgeIteratorData)
+{
+    edgeIteratorData->currentEdge = edgeIteratorData->currentEdge->next;
+    if(edgeIteratorData->currentEdge == NULL)
+    {
+        edgeIteratorData->currentVertex = edgeIteratorData->currentVertex->next;
+        if(edgeIteratorData->currentVertex == NULL)
+        {
+            return NULL;
+        }
+        edgeIteratorData->currentEdge = ((Vertex*)edgeIteratorData->currentVertex->data)->edges->head;
+    }
+    return (Edge*)edgeIteratorData->currentEdge->data;
+}
 int main(int argc, char *argv[])
 {
     Graph* graph = loadGraphFromFile("json/citiesShortestPath.json");
-    
     if(graph == NULL) return 0;
 
-    GraphCursor* cursor = createCursor();
-    cursorSetCurrentVertex(cursor, graph, graph->vertices->head->data);
 
+    EdgeIteratorData edgeIteratorData;
+    Edge* currentEdge = setEdgeIterator(&edgeIteratorData,graph->vertices->head->data);
 
+    while(currentEdge)
+    {
+        printf("%d %s\n",currentEdge->weight,currentEdge->destination->name);
+        currentEdge = nextEdge(&edgeIteratorData);
+    }
 
     return 0;
 }
-
