@@ -74,7 +74,7 @@ Graph* loadGraphFromFile(char* filename)
             return NULL;
         }
 
-        createEdgeWithWeight(sourceNode->data, destinationNode->data, currentEdge->weight ,UNDIRECTED);
+        createEdgeWithWeight(sourceNode->data, destinationNode->data, currentEdge->weight ,DIRECTED);
 
         currentEdge = currentEdge->next;
     }
