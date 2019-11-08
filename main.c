@@ -9,12 +9,13 @@
 
 #include "FileToGraph.h"
 
+//this structure is made to access the edges like a continously linked list list
 typedef struct EdgeIteratorData
 {
     DllNode* currentVertex;
     DllNode* currentEdge;
 }EdgeIteratorData;
-
+//this method starts the EdgeIterator at a certain vertex
 Edge* setEdgeIterator(EdgeIteratorData* edgeIteratorData, Vertex* startVertex)
 {
     edgeIteratorData->currentVertex = startVertex->ptrToNode;
@@ -31,6 +32,7 @@ Edge* setEdgeIterator(EdgeIteratorData* edgeIteratorData, Vertex* startVertex)
     }
     return (Edge*)edgeIteratorData->currentEdge->data;
 }
+//this method returns the next edge
 Edge* nextEdge(EdgeIteratorData* edgeIteratorData)
 {
     edgeIteratorData->currentEdge = edgeIteratorData->currentEdge->next;
@@ -102,12 +104,37 @@ void bellmanFordAlg(Graph* graphToSearch, Vertex* start, Vertex* destination){
         vertexIterator = vertexIterator->next;
     }
 
-    Vertex* resultPath = destination;
-    while(resultPath)
-    {
-        printf("<- %s ",resultPath->name);
-        resultPath = ((bellmanFordVertexData*)resultPath->data)->previous;
+    //negative loop check
+    bool negativeCycleFound = false;
+    Edge* currentEdge = setEdgeIterator(&edgeIteratorData,graphToSearch->vertices->head->data);
+
+    while(currentEdge){
+        Vertex* sourceVertex = ((Vertex*)edgeIteratorData.currentVertex->data);
+        Vertex* destinationVertex = currentEdge->destination;
+        bellmanFordVertexData* sourceData = sourceVertex->data;
+        bellmanFordVertexData* destinationData = destinationVertex->data;
+
+        if(sourceData->distance + currentEdge->weight < destinationData->distance)
+        {
+            printf("error the graph contains a negative cycle\n");
+            negativeCycleFound = true;
+            break;
+        }
+
+        currentEdge = nextEdge(&edgeIteratorData);
     }
+
+    //print the results
+    if(negativeCycleFound == false)
+    {
+        Vertex* resultPath = destination;
+        while(resultPath)
+        {
+            printf("<- %s ",resultPath->name);
+            resultPath = ((bellmanFordVertexData*)resultPath->data)->previous;
+        }
+    }
+
 
     //loop through the vertexes to free the used data
     vertexIterator = graphToSearch->vertices->head;
@@ -122,11 +149,11 @@ void bellmanFordAlg(Graph* graphToSearch, Vertex* start, Vertex* destination){
 
 int main(int argc, char *argv[])
 {
-    Graph* graph = loadGraphFromFile("json/citiesShortestPath.json");
+    Graph* graph = loadGraphFromFile("json/citiesShortestPath2.json");
     if(graph == NULL) return 0;
 
 
-     bellmanFordAlg(graph,searchVertexByName(graph,"Amsterdam"), searchVertexByName(graph,"Florence"));
+    bellmanFordAlg(graph,searchVertexByName(graph,"Amsterdam"), searchVertexByName(graph,"Florence"));
 
     return 0;
 }
