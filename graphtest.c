@@ -1,10 +1,10 @@
-//#include "munit.h"
-//#include "graph.h"
-//#include "graphcursor.h"
-//#include <stdio.h>
+// #include "lib/munit/munit.h"
+// #include "lib/graph/graph.h"
+// #include "lib/cursor/graphcursor.h"
+// #include <stdio.h>
 
-//MunitResult graphCreate_test(const MunitParameter params[], void *data)
-//{
+// MunitResult graphCreate_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    Graph *graph = createGraph();
@@ -17,10 +17,10 @@
 //    graphDelete(&graph);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult graphDelete_empty(const MunitParameter params[], void *data)
-//{
+// MunitResult graphDelete_empty(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 //    Graph *graph = createGraph();
@@ -32,10 +32,10 @@
 //    munit_assert_null(graph);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult addVertex_test(const MunitParameter params[], void *data)
-//{
+// MunitResult addVertex_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -68,10 +68,10 @@
 //    graphDelete(&graph2);
 
 //    return MUNIT_OK;
-//}
+// }
 
-//MunitResult deleteVertexTest(const MunitParameter params[], void *data)
-//{
+// MunitResult deleteVertexTest(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -94,9 +94,9 @@
 //    graphDelete(&graph);
 
 //    return MUNIT_OK;
-//}
-//MunitResult numberOfVertices_test(const MunitParameter params[], void *data)
-//{
+// }
+// MunitResult numberOfVertices_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -122,9 +122,9 @@
 //    graphDelete(&graph);
 
 //    return MUNIT_OK;
-//}
-//MunitResult createEdge_test(const MunitParameter params[], void *data)
-//{
+// }
+// MunitResult createEdge_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -148,20 +148,20 @@
 //    munit_assert_true(((Edge*)vertex1->edges->head->data)->destination == vertex2);
 //    munit_assert_true(((Edge*)vertex2->edges->head->data)->destination == vertex1);
 
-////    //test double assignment
-////    createEdge(vertex2,vertex1, DIRECTED);
-////    munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
+// //    //test double assignment
+// //    createEdge(vertex2,vertex1, DIRECTED);
+// //    munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
 
-////    //test double assignment
-////    createEdge(vertex2,vertex1, UNDIRECTED);
-////    munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
+// //    //test double assignment
+// //    createEdge(vertex2,vertex1, UNDIRECTED);
+// //    munit_assert_true(dllNumberOfElements(vertex2->edges) == 1);
 
 //    graphDelete(&graph);
 
 //    return MUNIT_OK;
-//}
-//MunitResult createEdgeWithWeight_test(const MunitParameter params[], void *data)
-//{
+// }
+// MunitResult createEdgeWithWeight_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -192,9 +192,9 @@
 
 //    graphDelete(&graph);
 //    return MUNIT_OK;
-//}
-//MunitResult deleteEdge_undirected_test(const MunitParameter params[], void *data)
-//{
+// }
+// MunitResult deleteEdge_undirected_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -225,9 +225,9 @@
 //    graphDelete(&graph);
 //    return MUNIT_OK;
 
-//}
-//MunitResult deleteEdge_directed_test(const MunitParameter params[], void *data)
-//{
+// }
+// MunitResult deleteEdge_directed_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -246,9 +246,9 @@
 //    graphDelete(&graph);
 //    return MUNIT_OK;
 
-//}
-//MunitResult printConnections_test(const MunitParameter params[], void *data)
-//{
+// }
+// MunitResult printConnections_test(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -272,9 +272,9 @@
 //    graphDelete(&graph);
 //    return MUNIT_OK;
 
-//}
-//MunitResult searchVectorByNameTest(const MunitParameter params[], void *data)
-//{
+// }
+// MunitResult searchVectorByNameTest(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -302,9 +302,9 @@
 //    graphDelete(&graph);
 //    return MUNIT_OK;
 
-//}
-//MunitResult graphClearTest(const MunitParameter params[], void *data)
-//{
+// }
+// MunitResult graphClearTest(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -324,9 +324,9 @@
 //    graphDelete(&graph);
 //    return MUNIT_OK;
 
-//}
-//MunitResult cursorTest(const MunitParameter params[], void *data)
-//{
+// }
+// MunitResult cursorTest(const MunitParameter params[], void *data)
+// {
 //    (void)params; // parameter not used (prevent warning)
 //    (void)data;
 
@@ -371,9 +371,9 @@
 //    graphDelete(&graph);
 //    return MUNIT_OK;
 
-//}/* These tests contain only valid operations. These should always succeed. */
-//MunitTest tests_valid[] =
-//{
+// }/* These tests contain only valid operations. These should always succeed. */
+// MunitTest tests_valid[] =
+// {
 //    /* {name, testfunction, setupfunction, teardownfunction, options, parameters} */
 //    {"/graphCreate", graphCreate_test, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
 //    {"/graphDelete Empty List", graphDelete_empty, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
@@ -391,39 +391,39 @@
 
 //    /* Mark the end of the array with an entry where the test function is NULL */
 //    {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
-//};
+// };
 
-///* These tests contain invalid operations. These tests are allowed to fail or result in a crash. */
-//MunitTest tests_invalid[] =
-//{
+// /* These tests contain invalid operations. These tests are allowed to fail or result in a crash. */
+// MunitTest tests_invalid[] =
+// {
 //    /* {name, testfunction, setupfunction, teardownfunction, options, parameters} */
 //    //{"/dllAddAfter illegal Operations", dllAddAfter_NodeNotInList, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL},
 
 //    /* Mark the end of the array with an entry where the test function is NULL */
 //    {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}
-//};
+// };
 
-//static const MunitSuite suite_legal =
-//{
+// static const MunitSuite suite_legal =
+// {
 //    "DLL", /* name */
 //    tests_valid, /* tests */
 //    NULL, /* suites */
 //    1, /* iterations */
 //    MUNIT_SUITE_OPTION_NONE /* options */
-//};
+// };
 
-//static const MunitSuite suite_illegal =
-//{
+// static const MunitSuite suite_illegal =
+// {
 //    "DLL_INV", /* name */
 //    tests_invalid, /* tests */
 //    NULL, /* suites */
 //    1, /* iterations */
 //    MUNIT_SUITE_OPTION_NONE /* options */
-//};
+// };
 
-//#define RUN_SUITE_ILLEGAL 0
-//int main(int argc, char* argv[MUNIT_ARRAY_PARAM(argc + 1)])
-//{
+// #define RUN_SUITE_ILLEGAL 0
+// int main(int argc, char* argv[MUNIT_ARRAY_PARAM(argc + 1)])
+// {
 //    int ret = munit_suite_main(&suite_legal, (void*) "graph", argc, argv);
 //    #if RUN_SUITE_ILLEGAL == 1
 //    // The tests in suite_illegal are allowed to fail or the crash the program.
@@ -434,4 +434,4 @@
 //    #endif
 
 //    return ret;
-//}
+// }

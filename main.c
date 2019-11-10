@@ -6,7 +6,6 @@
 #include "lib/munit/munit.h"
 #include "lib/graph/graph.h"
 #include "lib/cursor/graphcursor.h"
-
 #include "FileToGraph.h"
 
 //this structure is made to access the edges like a continously linked list list
@@ -114,7 +113,7 @@ void bellmanFordAlg(Graph* graphToSearch, Vertex* start, Vertex* destination){
         bellmanFordVertexData* sourceData = sourceVertex->data;
         bellmanFordVertexData* destinationData = destinationVertex->data;
 
-        if(sourceData->distance + currentEdge->weight < destinationData->distance)
+        if(sourceData->distance != INT_MAX && sourceData->distance + currentEdge->weight < destinationData->distance)
         {
             printf("error the graph contains a negative cycle\n");
             negativeCycleFound = true;
@@ -149,10 +148,11 @@ void bellmanFordAlg(Graph* graphToSearch, Vertex* start, Vertex* destination){
 
 int main(int argc, char *argv[])
 {
-    Graph* graph = loadGraphFromFile("json/citiesShortestPath2.json");
+
+    //load graph json file
+    Graph* graph = loadGraphFromFile("json/citiesShortestPath.json");
     if(graph == NULL) return 0;
-
-
+    //search for shortest path
     bellmanFordAlg(graph,searchVertexByName(graph,"Amsterdam"), searchVertexByName(graph,"Florence"));
 
     return 0;
